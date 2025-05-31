@@ -20,6 +20,9 @@ export class hashMap {
     resize() {
         this.capacity *= 2
         this.loadFactor -= 0.5
+        if(this.loadFactor <= 0) {
+            this.loadFactor = 0.75
+        }
         let oldBuckets = []
         this.buckets.forEach(i => {
             if(i != null) {
@@ -155,7 +158,9 @@ export class hashMap {
         return this.occupied
     }
     clear() {
-        this.buckets.fill(null)
+        this.capacity = 16
+        this.loadFactor = 0.75
+        this.buckets = new Array(this.capacity).fill(null)
         this.occupied = 0
     }
     keys() {
